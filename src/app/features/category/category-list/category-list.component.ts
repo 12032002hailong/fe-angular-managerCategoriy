@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { CategoryService } from '../../services/category.service';
-import { Category } from '../../models/category.model';
+import { CategoryService } from '../services/category.service';
 import { Observable } from 'rxjs';
+import { Category } from '../models/category.model';
 
 @Component({
   selector: 'app-category-list',
