@@ -1,1 +1,148 @@
-<h1>{{ this.id }}</h1>
+<div class="container">
+  <h1 class="mt-3">Edit BlogPost</h1>
+
+  <ng-container *ngIf="model">
+    <form action="" #form="ngForm" (ngSubmit)="onFormSubmit()">
+      <div class="mt-2 mb-3 row">
+        <div class="mt-3 col-6">
+          <label for="title" class="form-label"> Title </label>
+          <input
+            type="text"
+            aria-label="blogTitle"
+            id="title"
+            name="title"
+            class="form-control"
+            [(ngModel)]="model.title"
+          />
+        </div>
+
+        <div class="mt-3 col-6">
+          <label for="urlHandle" class="form-label"> Url Handle </label>
+          <input
+            type="text"
+            aria-label="urlHandle"
+            id="urlHandle"
+            name="urlHandle"
+            class="form-control"
+            [(ngModel)]="model.urlHandle"
+          />
+        </div>
+
+        <div class="mt-3 col-6">
+          <label for="urlHandle" class="form-label"> Short Description </label>
+          <input
+            type="text"
+            aria-label="shortDescription"
+            id="shortDescription"
+            name="shortDescription"
+            class="form-control"
+            [(ngModel)]="model.shortDescription"
+          />
+        </div>
+
+        <div class="mt-3 col-6">
+          <label for="featuredImagedUrl" class="form-label"
+            >Featured Image Url</label
+          >
+          <input
+            type="text"
+            aria-label="featuredImageUrl"
+            id="featuredImageUrl"
+            name="featuredImageUrl"
+            class="form-control"
+            [(ngModel)]="model.featuredImageUrl"
+          />
+        </div>
+
+        <div class="mt-3">
+          <label for="content" class="form-label">Content</label>
+          <div class="d-flex flex-row">
+            <div class="col-6 p-2">
+              <textarea
+                name="content"
+                id="content"
+                class="form-control"
+                style="height: 350px; max-height: 350px"
+                [(ngModel)]="model.content"
+              ></textarea>
+            </div>
+            <div
+              class="col-6 p-2"
+              style="max-height: 350px; overflow-y: scroll"
+            >
+              <markdown [data]="model.content"> </markdown>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-3 col-6">
+          <label for="publishedDate" class="form-label"
+            >PublishedDate Date</label
+          >
+          <input
+            type="date"
+            aria-label="publishedDate"
+            id="publishedDate"
+            name="publishedDate"
+            class="form-control"
+            value="{{ model.publishedDate }}"
+            [(ngModel)]="model.publishedDate"
+            (ngModelChange)="model.publishedDate = $event"
+          />
+        </div>
+
+        <div class="mt-3 col-6">
+          <label for="author" class="form-label">Author</label>
+          <input
+            type="text"
+            aria-label="author"
+            id="author"
+            name="author"
+            class="form-control"
+            [(ngModel)]="model.author"
+          />
+        </div>
+
+        <div class="form-check mt-3 ml-3">
+          <input
+            type="checkbox"
+            id="isVisible"
+            class="form-check-input"
+            name="isVisible"
+            aria-label="isVisible"
+            [(ngModel)]="model.isVisible"
+          />
+          <label for="isVisible" class="form-check-label">Is Visible</label>
+        </div>
+
+        <div class="mt-3">
+          <label for="categories" class="from-label">Categories</label>
+          <ng-container *ngIf="categories$ | async as categories">
+            <select
+              name="categories"
+              id="categories"
+              class="form-control"
+              [(ngModel)]="selectedCategories"
+              multiple
+            >
+              <option *ngFor="let category of categories" [value]="category.id">
+                {{ category.name }}
+              </option>
+            </select>
+          </ng-container>
+        </div>
+
+        <div class="mt-3 d-flex">
+          <button class="btn btn-primary mt-3" type="submit">Save</button>
+          <button
+            type="button"
+            class="btn btn-danger ms-3 mt-3"
+            (click)="onDelete()"
+          >
+            Delete
+          </button>
+        </div>
+      </div>
+    </form>
+  </ng-container>
+</div>
