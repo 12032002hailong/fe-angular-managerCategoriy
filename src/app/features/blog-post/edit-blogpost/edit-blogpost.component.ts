@@ -22,6 +22,7 @@ export class EditBlogpostComponent implements OnInit, OnDestroy {
   updatedBlogPostSubscription?: Subscription;
   getBlogPostSubscription?: Subscription;
   deleteBlogPostSubscription?: Subscription;
+  isImageSelectorVisible: boolean = false;
 
   constructor(private route: ActivatedRoute,
     private blogPostService: BlogPostService,
@@ -68,6 +69,14 @@ export class EditBlogpostComponent implements OnInit, OnDestroy {
       })
     }
 
+  }
+
+  openImageSelector(): void {
+    this.isImageSelectorVisible = true;
+  }
+
+  closeImageSelector(): void {
+    this.isImageSelectorVisible = false;
   }
 
   onDelete(): void {
