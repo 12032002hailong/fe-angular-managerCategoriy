@@ -45,11 +45,16 @@
             >Featured Image Url
             <button
               type="button"
-              class="btn btn-light"
+              class="btn btn-light mx-3"
               (click)="openImageSelector()"
             >
               Select Image
             </button>
+            <ng-container *ngIf="model.featuredImageUrl !== ''">
+              <div>
+                <img [src]="model.featuredImageUrl" height="100" alt="" />
+              </div>
+            </ng-container>
           </label>
           <input
             type="text"

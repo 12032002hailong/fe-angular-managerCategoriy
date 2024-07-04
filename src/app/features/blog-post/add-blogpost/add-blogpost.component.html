@@ -40,8 +40,14 @@
 
       <div class="mt-3 col-6">
         <label for="featuredImagedUrl" class="form-label"
-          >Featured Image Url</label
-        >
+          >Featured Image Url
+
+          <ng-container *ngIf="model.featuredImageUrl !== ''">
+            <div>
+              <img [src]="model.featuredImageUrl" height="100" alt="" />
+            </div>
+          </ng-container>
+        </label>
         <input
           type="text"
           aria-label="featuredImageUrl"

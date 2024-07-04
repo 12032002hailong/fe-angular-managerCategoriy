@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ImageService } from './image.service';
+import { Observable } from 'rxjs';
+import { BlogImage } from 'src/shared/models/blog-image.model';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-image-selector',
@@ -7,11 +11,45 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ImageSelectorComponent implements OnInit {
 
-  constructor() { }
+  private file?: File;
+  fileName: string = '';
+  title: string = '';
+  images$?: Observable<BlogImage[]>;
+
+  @ViewChild('form', { static: false }) imageUploadForm?: NgForm;
+
+
+  constructor(private imageService: ImageService) { }
 
   ngOnInit() {
+    this.getImages();
+  }
+
+  onFileUploadChange(event: Event): void {
+    const element = event.currentTarget as HTMLInputElement;
+    this.file = element.files?.[0];
   }
 
 
+  uploadImage(): void {
+    if (this.file && this.fileName !== '' && this.title !== '') {
+      //Image service to upload the image
+      this.imageService.uploadImage(this.file, this.fileName, this.title).subscribe({
+        next: (response) => {
+          this.imageUploadForm?.resetForm();
+          this.getImages();
+        }
+      })
+    }
+  }
 
+  selectImage(image: BlogImage): void {
+    this.imageService.selectImage(image);
+  }
+
+
+  private getImages() {
+    this.images$ = this.imageService.getAllImages();
+
+  }
 }
